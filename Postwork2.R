@@ -1,0 +1,21 @@
+setwd("D:/ACS/BEDU/Modulo 2/Postwork_2")
+dir()
+docs<- lapply(dir(),read.csv)
+head(docs[[1]]);head(docs[[2]]);head(docs[[3]])
+str(docs[[1]]);str(docs[[2]]);str(docs[[3]])
+View(docs[[1]],"Temporada 17-18");View(docs[[2]],"Temporada 18-19");View(docs[[3]],"Temporada 19-20")
+summary(docs[[1]]);summary(docs[[2]]);summary(docs[[3]])
+names(docs[[1]]);names(docs[[2]]);names(docs[[3]])
+library(dplyr)
+docs<-lapply(docs,select,"Date","HomeTeam":"FTR")
+str(docs[[1]]);str(docs[[2]]);str(docs[[3]])
+docs[[1]]<-mutate(docs[[1]],Date = as.Date(Date,format = "%d/%m/%y"))
+docs[[2]]<-mutate(docs[[2]],Date = as.Date(Date,format = "%d/%m/%Y"))
+docs[[3]]<-mutate(docs[[3]],Date = as.Date(Date,format = "%d/%m/%Y"))
+temporadas<-do.call(rbind,docs)
+names(temporadas)
+str(temporadas)
+
+#Guardamos el data frame como CSV para su uso posterior
+
+data<-write.csv(temporadas,"D:\\ACS\\BEDU\\Modulo 2\\Postwork_3\\LaLiga17-20.csv")
